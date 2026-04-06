@@ -46,6 +46,9 @@ def main() -> None:
     dataset = make_dummy_dataset()
     print(f"Dataset size: {len(dataset)}")
 
+    import torch
+    use_cpu = not torch.cuda.is_available()
+
     training_args = SFTConfig(
         output_dir="/tmp/sft-output",
         max_steps=args.max_steps,
@@ -54,6 +57,9 @@ def main() -> None:
         logging_steps=1,
         save_strategy="no",
         report_to="wandb",
+        use_cpu=use_cpu,
+        bf16=not use_cpu,
+        fp16=False,
     )
 
     trainer = SFTTrainer(
