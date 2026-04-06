@@ -3,9 +3,13 @@ name = "sample-training"
 version = "0.1.0"
 description = "Sample Tier 2 research project for script-runner E2E validation"
 requires-python = ">=3.12"
-# Only add deps NOT in the base image. torch, transformers, etc. are pre-installed.
+# Note: system-site-packages should inherit base image packages (torch, trl, etc.)
+# but some packages may need to be listed explicitly if not inherited correctly.
 dependencies = [
     "wandb>=0.25",
+    "datasets>=4.0",
+    "trl>=0.29",
+    "transformers>=5.0",
 ]
 
 [build-system]
